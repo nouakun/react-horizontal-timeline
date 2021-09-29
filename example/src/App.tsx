@@ -1,35 +1,64 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
-import HorizontalTimeline from "@twinkble/react-horizontal-timeline";
+import React, {useEffect, useState} from "react";
+import HorizontalTimeline  from "@twinkble/react-horizontal-timeline";
 import items from "./items.json";
 
+import logo from "./logo.svg";
+import "./App.css";
+
 function App() {
-  const titles = items.map((item) => item.title);
-  console.log(titles);
-  const [current, setCurrent] = useState<number>(0);
-  const [previous, setPrevious] = useState<number>(0);
+    const [current, setCurrent] = useState<number>(0);
+    const [previous, setPrevious] = useState<number>(0);
+    const [rtl, setRtl] = useState<boolean>(false);
 
-  const getCurrent = (index: number) => {
-    return items[index];
-  };
+    const titles: string[] = items.map(
+        (item, index) => item.title
+    );
 
-  return (
-    <div
-      className="App"
-      style={{ width: "60%", height: "100px", margin: "0 auto" }}
-    >
-      <HorizontalTimeline
-        values={titles}
-        index={current}
-        indexClick={(index) => {
-          setCurrent(index);
-          setPrevious(previous);
-        }}
-      />
+    const toRtl = () => {
+        if (rtl) {
+            document.getElementsByTagName("html")[0].dir = "rtl"
+        }
+    }
 
-      <div className="text-center">{getCurrent(current).content.title}</div>
-    </div>
-  );
+
+    useEffect(() => {
+        toRtl()
+    }, [rtl])
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <img src={logo} className="App-logo" alt="logo"/>
+                <p>
+                    Blah
+                </p>
+                <button
+                    className="App-link"
+                    onClick={(e) => {
+                        e.preventDefault()
+                        setRtl(!rtl)
+                    }}
+                >
+                    Try RTL
+                </button>
+
+            </header>
+
+            <div className="timeline">
+                <HorizontalTimeline values={titles} index={current} indexClick={(index: number) => {
+                    setCurrent(index)
+                    setPrevious(index)
+                }}/>
+
+                <hr/>
+                <div>
+                    {items[current].content.title}
+                    <br/>
+                    {items[current].content.content}
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default App;

@@ -3,18 +3,16 @@ import React from "react";
 // Decorators
 import Radium from "radium";
 
-/** @ts-ignore */
-import dimensions from "react-dimensions";
-
 // Components
-import EventsBar from "./EventsBar";
+import EventsBar from "./Components/EventsBar";
 
 // Helpers and constansts
-import {cummulativeSeperation} from "../helpers";
+import {cummulativeSeperation} from "./helpers";
 
-import Constants from "../Constants";
+import Constants from "./Constants";
+import {withSize, SizeMeProps} from 'react-sizeme'
 
-export interface HorizontalTimelineProps {
+export type HorizontalTimelineProps = {
     // --- EVENTS ---
     // Selected index
     index: number;
@@ -42,9 +40,7 @@ export interface HorizontalTimelineProps {
     // --- INTERACTION ---
     isTouchEnabled?: boolean;
     isKeyboardEnabled?: boolean;
-    containerWidth?: number;
-    containerHeight?: number;
-}
+} & SizeMeProps;
 
 
 /**
@@ -54,13 +50,17 @@ export interface HorizontalTimelineProps {
  */
 const defaultGetLabel = (date: string) => date;
 
-/*
- * is the Horizontal Timeline. component expects an array of dates
- * just as strings (e.g. 1993-01-01) and layes them horizontaly on the the screen
- * also expects a callback which is activated when that particular index is
- * clicked passing that index along
+/**
+ * @typedef HorizontalTimelineProps
+ * @prop {UiStore} uiStore
  */
-class HorizontalTimeline extends React.Component<HorizontalTimelineProps> {
+
+/**
+ * @extends {Component<HorizontalTimelineProps, {}>}}
+ */
+class Index extends React.Component<HorizontalTimelineProps, {
+    size: SizeMeProps["size"]
+}> {
     static defaultProps = {
         // --- EVENTS ---
         getLabel: defaultGetLabel,
@@ -88,14 +88,20 @@ class HorizontalTimeline extends React.Component<HorizontalTimelineProps> {
         // --- INTERACTION ---
         isTouchEnabled: true,
         isKeyboardEnabled: true,
-
     }
+
+    constructor(props: HorizontalTimelineProps) {
+        super(props);
+
+        console.log(props.size)
+    }
+
+
 
     render() {
 
         const {
-            containerWidth,
-            containerHeight,
+            size,
             values,
             labelWidth,
             minEventPadding,
@@ -109,8 +115,10 @@ class HorizontalTimeline extends React.Component<HorizontalTimelineProps> {
             index,
         } = this.props;
 
-        if (!containerWidth) {
-            //As long as we do not know the width of our container, do not render anything!
+        const {width, height} = size!;
+
+        if (!width) {
+            //As long as we do not know the width of our , do not render anything!
             return false;
         }
 
@@ -132,7 +140,7 @@ class HorizontalTimeline extends React.Component<HorizontalTimelineProps> {
             date: values[index],
         }));
 
-        const visibleWidth = containerWidth - 80;
+        const visibleWidth = width - 80;
 
         const totalWidth = Math.max(
             events[events.length - 1].distance + this.props.linePadding,
@@ -150,8 +158,8 @@ class HorizontalTimeline extends React.Component<HorizontalTimelineProps> {
 
         return (
             <EventsBar
-                width={containerWidth!}
-                height={containerHeight!}
+                width={width!}
+                height={height!}
                 events={events}
                 isTouchEnabled={isTouchEnabled!}
                 totalWidth={totalWidth}
@@ -172,4 +180,4 @@ class HorizontalTimeline extends React.Component<HorizontalTimelineProps> {
 }
 
 
-export default Radium(dimensions({elementResize: true})(HorizontalTimeline));
+export default Radium(withSize()(Index));
