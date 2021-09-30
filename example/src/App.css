@@ -22,9 +22,7 @@
   width: 100%;
   margin: auto;
 }
-.timeline div:first-child {
-  height: 80px;
-}
+
 
 .card {
   box-shadow: 0 0 1.25rem #b7b7b7;

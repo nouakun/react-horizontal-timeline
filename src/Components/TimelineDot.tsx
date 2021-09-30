@@ -15,7 +15,7 @@ export type TimelineDotProps = {
   // The onClick handler ( in this case to trigger the fillingMotion of the timeline )
   onClick: (index: number) => void;
   // The date of the event (required to display it)
-  label: string;
+  label: JSX.Element | string;
   // The width you want the labels to be
   labelWidth: number;
   // The numerical value in pixels of the distance from the origin

@@ -23,82 +23,57 @@ I will appreciate your support to keep me going on maintaining & making packages
 <img height="41" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" title="Support me" width="141"/>
 </a>
 
-## HorizontalTimeline
+# Install
+
+```bash
+$ yarn insall @cielblog/react-horizontal-timeline
+
+// Or use npm
+$ npm install @cielblog/react-horizontal-timeline
+```
+
+## API
 
 It will just render a timeline with the titles (can be dates or anything) that you provided, and it is up to you what to do when a title is selected. i.e. it will give you the index of the title that was clicked, and you can do anything with it.
 
-Property	                  |	Type   	     |	Default	                      |	Description
-:--------------------------|:--------------|:-------------------------------|:--------------------------------
- values (**required**)     | array         | undefined                      | **sorted** array of dates (format:**yyyy-mm-dd**)
- indexClick (**required**) | function      | undefined                      | function that takes the index of the array as argument
- index (**required**)      | number        | undefined                      | the index of the selected date
- getLabel                  | function      | date.toDateString().substring(4) |  A function to calculate the label of the event based on the date of the event
- minEventPadding           | number        | 20                             | The minimum padding between two event labels
- maxEventPadding           | number        | 120                            | The maximum padding between two event labels
- linePadding               | number        | 100                            | Padding used at the start and end of the timeline
- labelWidth                | number        | 85                             | The width of an individual label
- fillingMotion             | object        |{ stiffness: 150, damping: 25 } | Sets the animation style of how filling motion will look
- slidingMotion             | object        |{ stiffness: 150, damping: 25 } | Sets the animation style of how sliding motion will look
- styles                    | object        |{ background: '#f8f8f8', foreground: '#7b9d6f', outline: '#dfdfdf' } | object containing the styles for the timeline currently outline (the color of the boundaries of the timeline and the buttons on it's either side), foreground (the filling color, active color) and background (the background color of your page) colors of the timeline can be changed.
- isTouchEnabled            | boolean       | true                           | Enable touch events (swipe left, right)
- isKeyboardEnabled         | boolean       | true                           | Enable keyboard events (up, down, left, right)
- isOpenBeginning           | boolean       | true                           | Show the beginning of the timeline as open ended
- isOpenEnding              | boolean       | true                           | Show the ending of the timeline as open ended
- isRtl                     | boolean       | false                          | Used for RTL languages, when this option is true, the direction of the timeline will be from right to left.
+| Property            | Type       | Required? | Default                                                                | Description                                                                                                                                                                                                                                                                               |
+|---------------------|------------|-----------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `titles`            | `string[]` | ✅         | `undefined`                                                            | **Stored** array of titles.                                                                                                                                                                                                                                                               |
+| `index`             | `number`   |           | `undefined`                                                            | The index of the selected title.                                                                                                                                                                                                                                                          |
+| `onTitleClick`      | `function` | ✅         | `undefined`                                                            | Function that takes the index of array as argument.                                                                                                                                                                                                                                       |
+| `renderTitles`      | `function` |           | `string`                                                               | Custom rendering title function.                                                                                                                                                                                                                                                          |
+| `maxEventPadding`   | `number`   |           | `20`                                                                   | The minimum padding between two event titles.                                                                                                                                                                                                                                             |
+| `maxEventPadding`   | `number`   |           | `120`                                                                  | The maximum padding between two event titles.                                                                                                                                                                                                                                             |
+| `linePadding`       | `number`   |           | `100`                                                                  | Padding used at the start and end of the timeline,                                                                                                                                                                                                                                        |
+| `titleWidth`        | `number`   |           | `85`                                                                   | The width of an individual title.                                                                                                                                                                                                                                                         |
+| `fillingMotion`     | `object`   |           | `{ stiffness: 150, damping: 25 }`                                      | Sets the animation style of how filling motion will look.                                                                                                                                                                                                                                 |
+| `slidingMotion`     | `object`   |           | `{ stiffness: 150, damping: 25 }`                                      | Sets the animation style of how sliding motion will look.                                                                                                                                                                                                                                 |
+| `styles`            | `object`   |           | `{ background: '#f8f8f8', foreground: '#7b9d6f', outline: '#dfdfdf' }` | Object containing the styles for the timeline currently outline (the color of the boundaries of the timeline and the buttons on it's either side), foreground (the filling color, active color) and background (the background color of your page) colors of the timeline can be changed. |
+| `isRtl`             | `boolean`  |           | `false`                                                                | Used to make the timeline support RTL languages.                                                                                                                                                                                                                                          |
+| `isTouchEnabled`    | `boolean`  |           | `true`                                                                 | Enable touch events (swipe left, right).                                                                                                                                                                                                                                                  |
+| `isKeyboardEnabled` | `boolean`  |           | `true`                                                                 | Enable keyboard events (up, down, left, right).                                                                                                                                                                                                                                           |
+| `isOpenBeginning`   | `boolean`  |           | `true`                                                                 | Show the ending of the timeline as open ended.                                                                                                                                                                                                                                            |
 
-This is how it can be used.
+
+# Usage
 
 ```tsx
-import HorizontalTimeline from 'react-horizontal-timeline';
+import React, {useState} from 'react'
+import HorizontalTimeline from "@cielblog/react-horizontal-timeline";
 
-/*
-Format: YYYY-MM-DD
-Note: Make sure dates are sorted in increasing order
-*/
-const VALUES = [
-    '2008-06-01',
-    '2010-06-01',
-    '2013-06-01',
-    '2015-03-01',
-    '2019-01-01',
-    '2019-06-17',
-    '2019-08-01',
+const TITLES = [
+    'Title1',
+    'Title 2',
+    'Title 3',
 ];
 
-export default class App extends React.Component {
-  state = { value: 0, previous: 0 };
-
-  render() {
+export const MyTimeline = (props) => {
+    const [current, setCurrent] = useState(0)
+    
     return (
-      <div>
-        {/* Bounding box for the Timeline */}
-        <div style={{ width: '60%', height: '100px', margin: '0 auto' }}>
-          <HorizontalTimeline
-            index={this.state.value}
-            indexClick={(index) => {
-              this.setState({ value: index, previous: this.state.value });
-            }}
-            values={ VALUES } />
+        <div>
+            <HorizontalTimeline titles={TITLES} index={current} onTitleClick={(index) => setCurrent(index)}/>
         </div>
-        <div className='text-center'>
-          {/* any arbitrary component can go here */}    
-          {this.state.value}
-        </div>
-      </div>
-    );
-  }
+    )
 }
-
 ```
-For more advanced usage take a look at the demos directory.
-
-## Running the development version
-- Just clone the repo and do an `npm install` (or `yarn install`)
-- Note: You will need to do `npm install react react-dom` to install `peerDependencies` as both `yarn` and `npm` don't do this.
-- Run `npm run start`/`npm start`/`yarn start`.
-- Then go to `localhost:5001/demos/<demo_name>/index.html` to see the fruits of your labor.
-
-#### Here is the information provided by the original author.
-
-An easy to customize, horizontal timeline powered by CSS and jQuery.
-

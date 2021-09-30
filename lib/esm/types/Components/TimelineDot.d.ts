@@ -7,7 +7,7 @@ export declare type TimelineDotProps = {
     index: number;
     date: string;
     onClick: (index: number) => void;
-    label: string;
+    label: JSX.Element | string;
     labelWidth: number;
     distanceFromOrigin: number;
     styles: {

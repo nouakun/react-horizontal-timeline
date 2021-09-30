@@ -1,6 +1,6 @@
 {
-  "name": "@twinkble/react-horizontal-timeline",
-  "version": "1.0.0",
+  "name": "@cielblog/react-horizontal-timeline",
+  "version": "1.0.1",
   "description": "A horizontal timeline component made using react.",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jckdrpr/react-horizontal-timeline.git"
+    "url": "git+https://github.com/twinkble/react-horizontal-timeline.git"
   },
   "keywords": [
     "react",
@@ -30,16 +30,15 @@
   "bugs": {
     "url": "https://github.com/twinkble/react-horizontal-timeline/issues"
   },
-  "homepage": "https://github.com/twinkble/react-horizontal-timeline",
+  "homepage": "https://twinkble.github.io/react-horizontal-timeline/",
   "dependencies": {
-    "color": "^4.0.1",
+    "colord": "^2.8.0",
     "radium": "^0.26.1",
     "react-icons": "^4.2.0",
     "react-motion": "^0.5.0",
     "react-sizeme": "^3.0.2"
   },
   "devDependencies": {
-    "@types/color": "^3.0.2",
     "@types/element-resize-event": "^3.0.0",
     "@types/lodash": "^4.14.175",
     "@types/radium": "^0.24.4",

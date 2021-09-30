@@ -1,7 +1,7 @@
 import React from "react";
 import Radium from "radium";
 
-import Color from "color";
+import { colord } from "colord";
 import { asCSS } from "../helpers";
 
 const LEFT = "left";
@@ -43,7 +43,7 @@ const faderStyle: {
     [position]: 40,
     backgroundImage: `linear-gradient(to ${gradientDirection}, ${
       styles.background
-    }, ${Color(styles.background).alpha(0).rgb()})`,
+    }, ${colord(styles.background).alpha(0).toRgbString()})`,
   }),
 };
 
@@ -53,21 +53,25 @@ const faderStyle: {
  * @param  {object} props The props from parent mainly styles
  * @return {StatelessFunctionalReactComponent} Markup Information for the fader
  */
-const Faders: React.FC<FadersProps> = (props) => (
-  <ul style={{ listStyle: "none" }}>
-    <li
-      style={asCSS([
-        faderStyle.base,
-        faderStyle.specific(props.styles, LEFT, RIGHT),
-      ])}
-    />
-    <li
-      style={asCSS([
-        faderStyle.base,
-        faderStyle.specific(props.styles, RIGHT, LEFT),
-      ])}
-    />
-  </ul>
-);
+const Faders: React.FC<FadersProps> = (props) => {
+  const { styles } = props;
+
+  return (
+    <ul className="timeline-faders" style={{ listStyle: "none" }}>
+      <li
+        style={asCSS([
+          faderStyle.base,
+          faderStyle.specific(styles, LEFT, RIGHT),
+        ])}
+      />
+      <li
+        style={asCSS([
+          faderStyle.base,
+          faderStyle.specific(styles, RIGHT, LEFT),
+        ])}
+      />
+    </ul>
+  );
+};
 
 export default Radium(Faders);

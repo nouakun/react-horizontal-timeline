@@ -3,3 +3,6 @@ checks:
     enabled: true
     config:
       threshold: 100
+exclude_patterns:
+  - "lib/"
+  - "example/"

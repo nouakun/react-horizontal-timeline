@@ -7,7 +7,7 @@ import TimelineDot from "./TimelineDot";
 export type EventsProps = {
   events: {
     distance: number;
-    label: string;
+    label: JSX.Element | string;
     date: string;
   }[];
   // The index of the selected event

@@ -7,7 +7,7 @@ export declare type EventsBarProps = {
     height: number;
     events: {
         distance: number;
-        label: string;
+        label: JSX.Element | string;
         date: string;
     }[];
     isTouchEnabled: boolean;

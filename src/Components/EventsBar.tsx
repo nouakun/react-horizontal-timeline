@@ -4,9 +4,11 @@ import { Motion, spring } from "react-motion";
 import Events from "./Events";
 import EventLine from "./EventLine";
 import HorizontalTimelineButtons from "./HorizontalTimelineButtons";
+import Faders from "./Faders";
 
 import Constants from "../Constants";
 import Radium from "radium";
+
 import { asCSS } from "../helpers";
 
 /**
@@ -17,7 +19,7 @@ export type EventsBarProps = {
   height: number;
   events: {
     distance: number;
-    label: string;
+    label: JSX.Element | string;
     date: string;
   }[];
   isTouchEnabled: boolean;
@@ -311,7 +313,7 @@ class EventsBar extends React.Component<EventsBarProps, EventsBarStates> {
             )}
           </Motion>
         </div>
-        {/*<Faders styles={this.props.styles} />*/}
+        <Faders styles={this.props.styles} />
         <HorizontalTimelineButtons
           maxPosition={maxPosition}
           position={position}

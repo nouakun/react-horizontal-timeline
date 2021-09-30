@@ -16,30 +16,58 @@ export type HorizontalTimelineProps = {
   // --- EVENTS ---
   // Selected index
   index: number;
+
   // Array containing the sorted date strings
-  values: string[];
+  titles: string[];
+
   // Function that takes the index of the array as argument
-  indexClick: (index: number) => void;
-  // Function to calculate the label based on the date string
+  onTitleClick: (index: number) => void;
+
+  /**
+   * @deprecated Use renderTitles instead.
+   * @param date string
+   * @param index number
+   *
+   * @return string
+   */
   getLabel?: (date: string, index: number) => string;
+
+  /**
+   * Customize the titles as you prefer.
+   *
+   * @since 1.0.1
+   * @param title string
+   * @param index number
+   *
+   * @return JSX.Element | string
+   */
+
+  renderTitles?: (title: string, index: number) => JSX.Element | string;
+
   // --- POSITIONING ---
   // the minimum padding between events
   minEventPadding?: number;
+
   // The maximum padding between events
   maxEventPadding?: number;
+
   // Padding at the front and back of the line
   linePadding?: number;
+
   // The width of the label
-  labelWidth?: number;
+  titleWidth?: number;
+
   // --- STYLING ---
   styles?: any;
   fillingMotion?: any;
   slidingMotion?: any;
   isOpenEnding?: boolean;
   isOpenBeginning?: boolean;
+
   // --- INTERACTION ---
   isTouchEnabled?: boolean;
   isKeyboardEnabled?: boolean;
+
   isRtl?: boolean;
 } & SizeMeProps;
 
@@ -49,6 +77,14 @@ export type HorizontalTimelineProps = {
  * @return {string} The formatted date string
  */
 const defaultGetLabel = (date: string) => date;
+
+/**
+ * Default render of title.
+ * @since 1.0.1
+ *
+ * @param title
+ */
+const defaultRenderTitles = (title: string) => title;
 
 /**
  * @typedef HorizontalTimelineProps
@@ -67,11 +103,13 @@ class Index extends React.Component<
   static defaultProps = {
     // --- EVENTS ---
     getLabel: defaultGetLabel,
+    renderTitles: defaultRenderTitles,
+
     // --- POSITIONING ---
     minEventPadding: Constants.MIN_EVENT_PADDING,
     maxEventPadding: Constants.MAX_EVENT_PADDING,
     linePadding: Constants.TIMELINE_PADDING,
-    labelWidth: Constants.DATE_WIDTH,
+    titleWidth: Constants.DATE_WIDTH,
     // --- STYLING ---
     styles: {
       outline: "#dfdfdf",
@@ -104,16 +142,16 @@ class Index extends React.Component<
 
   render() {
     const {
-      values,
-      labelWidth,
+      titles,
+      titleWidth,
       minEventPadding,
       maxEventPadding,
       linePadding,
-      getLabel,
+      renderTitles,
       isTouchEnabled,
       styles,
       fillingMotion,
-      indexClick,
+      onTitleClick,
       index,
       isRtl,
     } = this.props;
@@ -127,12 +165,13 @@ class Index extends React.Component<
             return <></>;
           }
 
-          // Convert the date strings to actual date objects
-          const dates = values.map((value) => value);
+          // Convert the title strings to actual title objects
+          const titlesList = titles.map((title) => title);
+
           // Calculate the distances for all events
           const distances = cummulativeSeperation(
-            dates,
-            labelWidth,
+            titlesList,
+            titleWidth,
             minEventPadding,
             maxEventPadding,
             linePadding
@@ -141,8 +180,8 @@ class Index extends React.Component<
           // Convert the distances and dates to events
           const events = distances.map((distance: number, index: number) => ({
             distance,
-            label: getLabel!(values[index], index),
-            date: values[index],
+            label: renderTitles!(titlesList[index], index),
+            date: titles[index],
           }));
 
           const visibleWidth = width - 80;
@@ -172,8 +211,8 @@ class Index extends React.Component<
                 visibleWidth={visibleWidth}
                 index={this.props.index}
                 styles={styles}
-                indexClick={indexClick}
-                labelWidth={labelWidth!}
+                indexClick={onTitleClick}
+                labelWidth={titleWidth!}
                 fillingMotion={fillingMotion}
                 barPaddingRight={barPaddingRight}
                 barPaddingLeft={barPaddingLeft}

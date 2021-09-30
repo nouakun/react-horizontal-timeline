@@ -5,7 +5,7 @@ import React from "react";
 export declare type EventsProps = {
     events: {
         distance: number;
-        label: string;
+        label: JSX.Element | string;
         date: string;
     }[];
     selectedIndex: number;

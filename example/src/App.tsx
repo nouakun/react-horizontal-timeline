@@ -40,11 +40,19 @@ function App() {
         <div className="timeline">
           <HorizontalTimeline
             isRtl={rtl}
-            values={titles}
+            titles={titles}
             index={current}
-            indexClick={(index: number) => {
+            onTitleClick={(index: number) => {
               setCurrent(index);
               setPrevious(index);
+            }}
+            renderTitles={(title: string, index: number) => {
+              return (
+                <div placeholder={`tab-${index}`}>
+                  &#9733;
+                  <br /> {title}
+                </div>
+              );
             }}
           />
         </div>
