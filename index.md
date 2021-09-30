@@ -1,3 +1,5 @@
+![image](logo.png)
+
 # React Horizontal Timeline
 [![npm version](https://badge.fury.io/js/react-horizontal-timeline.svg)](https://badge.fury.io/js/react-horizontal-timeline)
 [![Build Status](https://travis-ci.org/twinkble/react-horizontal-timeline.svg?branch=master)](https://travis-ci.org/twinkble/react-horizontal-timeline)
