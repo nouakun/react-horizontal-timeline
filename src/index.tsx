@@ -76,7 +76,7 @@ class Index extends React.Component<
     styles: {
       outline: "#dfdfdf",
       background: "#f8f8f8",
-      foreground: "#7b9d6f",
+      foreground: "#61dafb",
     },
     fillingMotion: {
       stiffness: 150,

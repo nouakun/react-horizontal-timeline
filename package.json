@@ -32,11 +32,8 @@
   },
   "homepage": "https://github.com/twinkble/react-horizontal-timeline",
   "dependencies": {
-    "color": "^3.0.2",
-    "element-resize-event": "^3.0.6",
-    "lodash": "^4.17.21",
+    "color": "^4.0.1",
     "radium": "^0.26.1",
-    "react-dimensions": "^2.0.0-alpha2",
     "react-icons": "^4.2.0",
     "react-motion": "^0.5.0",
     "react-sizeme": "^3.0.2"
