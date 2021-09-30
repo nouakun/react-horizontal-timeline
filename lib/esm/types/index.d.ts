@@ -1,0 +1,22 @@
+import React from "react";
+import { SizeMeProps } from "react-sizeme";
+export declare type HorizontalTimelineProps = {
+    index: number;
+    values: string[];
+    indexClick: (index: number) => void;
+    getLabel?: (date: string, index: number) => string;
+    minEventPadding?: number;
+    maxEventPadding?: number;
+    linePadding?: number;
+    labelWidth?: number;
+    styles?: any;
+    fillingMotion?: any;
+    slidingMotion?: any;
+    isOpenEnding?: boolean;
+    isOpenBeginning?: boolean;
+    isTouchEnabled?: boolean;
+    isKeyboardEnabled?: boolean;
+    isRtl?: boolean;
+} & SizeMeProps;
+declare const _default: React.ComponentType<Pick<HorizontalTimelineProps, "index" | "labelWidth" | "styles" | "isRtl" | "fillingMotion" | "isTouchEnabled" | "isKeyboardEnabled" | "indexClick" | "values" | "getLabel" | "minEventPadding" | "maxEventPadding" | "linePadding" | "slidingMotion" | "isOpenEnding" | "isOpenBeginning"> & import("react-sizeme").WithSizeProps>;
+export default _default;
