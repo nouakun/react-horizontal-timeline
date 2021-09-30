@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HorizontalTimeline from "@twinkble/react-horizontal-timeline";
 import items from "./items.json";
 
-import logo from "./logo.svg";
+import logo from "./logo.png";
 import "./App.css";
 
 function App() {
@@ -13,9 +13,7 @@ function App() {
   const titles: string[] = items.map((item, index) => item.title);
 
   const toRtl = () => {
-    if (rtl) {
-      document.getElementsByTagName("html")[0].dir = "rtl";
-    }
+    document.getElementsByTagName("html")[0].dir = rtl ? "rtl" : "ltr";
   };
 
   useEffect(() => {
@@ -24,36 +22,36 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Blah</p>
-        <button
-          className="App-link"
-          onClick={(e) => {
-            e.preventDefault();
-            setRtl(!rtl);
-          }}
-        >
-          Try RTL
-        </button>
-      </header>
+      <div className="container">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>A React port of the horizontal time-line.</p>
+          <button
+            className="button"
+            onClick={(e) => {
+              e.preventDefault();
+              setRtl(!rtl);
+            }}
+          >
+            Try RTL Version
+          </button>
+        </header>
 
-      <div className="timeline">
-        <HorizontalTimeline
-          isRtl={rtl}
-          values={titles}
-          index={current}
-          indexClick={(index: number) => {
-            setCurrent(index);
-            setPrevious(index);
-          }}
-        />
+        <div className="timeline">
+          <HorizontalTimeline
+            isRtl={rtl}
+            values={titles}
+            index={current}
+            indexClick={(index: number) => {
+              setCurrent(index);
+              setPrevious(index);
+            }}
+          />
+        </div>
 
-        <hr />
-        <div>
-          {items[current].content.title}
-          <br />
-          {items[current].content.content}
+        <div className="card">
+          <h2 className="card-title">{items[current].content.title}</h2>
+          <p className="card-content">{items[current].content.content}</p>
         </div>
       </div>
     </div>

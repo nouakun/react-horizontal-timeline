@@ -1,8 +1,10 @@
 /spec
 /src
-/tools
+/example
 .coveralls.yml
 .travis.yml
 .gitignore
 .index.html
 README.md
+.idea
+.vscode

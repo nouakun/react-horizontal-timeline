@@ -115,7 +115,6 @@ class TimelineDot extends React.Component<TimelineDotProps, {}> {
       dotType = "present";
     }
 
-    console.log(distanceFromOrigin, labelWidth);
     return (
       <li
         key={this.props.date}

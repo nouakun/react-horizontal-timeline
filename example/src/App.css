@@ -1,49 +1,72 @@
 .App {
-  text-align: center;
-  background-color: #282c34;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
   height: 100vh;
+  align-items: center;
+}
 
+.container {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
+  max-width: 264px;
   pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .timeline {
   height: 80px;
   width: 100%;
   margin: auto;
-  color: #fff;
 }
 .timeline div:first-child {
   height: 80px;
+}
+
+.card {
+  box-shadow: 0 0 1.25rem #b7b7b7;
+  border-radius: 0.25rem;
+  padding: 1.25rem;
+  margin-top: 1rem;
+}
+
+.card .card-title {
+  position: relative;
+  text-align: start;
+  color: rgb(97, 218, 251);
+  padding-bottom: 0.5rem;
+}
+
+.card .card-title::after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: #dfdfdf;
+}
+
+.card .card-content {
+  text-align: start;
+}
+
+.button {
+  background-color: #61dafb;
+  outline: 0;
+  border: 0;
+  padding: .5rem;
+  color: #fff;
+  border-radius: .25rem;
+  font-size: 1.1rem;
+  font-weight: bolder;
+  margin: 1rem 0;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #dfdfdf;
+  color: #6f6f6f;
 }

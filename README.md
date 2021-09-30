@@ -1,19 +1,31 @@
+![image](https://twinkble.github.io/react-horizontal-timeline/logo.png)
+
 # React Horizontal Timeline
 [![npm version](https://badge.fury.io/js/react-horizontal-timeline.svg)](https://badge.fury.io/js/react-horizontal-timeline)
-[![Build Status](https://travis-ci.org/jckdrpr/react-horizontal-timeline.svg?branch=master)](https://travis-ci.org/jckdrpr/react-horizontal-timeline)
-[![Code Climate](https://codeclimate.com/github/jckdrpr/react-horizontal-timeline/badges/gpa.svg)](https://codeclimate.com/github/jckdrpr/react-horizontal-timeline)
-[![Dependency Status](https://david-dm.org/jckdrpr/react-horizontal-timeline.svg)](https://david-dm.org/jckdrpr/react-horizontal-timeline)
-[![devDependency Status](https://david-dm.org/jckdrpr/react-horizontal-timeline/dev-status.svg)](https://david-dm.org/jckdrpr/react-horizontal-timeline#info=devDependencies)
+[![Build Status](https://travis-ci.org/twinkble/react-horizontal-timeline.svg?branch=master)](https://travis-ci.org/twinkble/react-horizontal-timeline)
+[![Code Climate](https://codeclimate.com/github/twinkble/react-horizontal-timeline/badges/gpa.svg)](https://codeclimate.com/github/twinkble/react-horizontal-timeline)
+[![Dependency Status](https://david-dm.org/twinkble/react-horizontal-timeline.svg)](https://david-dm.org/twinkble/react-horizontal-timeline)
+[![devDependency Status](https://david-dm.org/twinkble/react-horizontal-timeline/dev-status.svg)](https://david-dm.org/twinkble/react-horizontal-timeline#info=devDependencies)
+[![devDependency Status](https://david-dm.org/twinkble/react-horizontal-timeline/peer-status.svg)](https://david-dm.org/twinkble/react-horizontal-timeline#info=peerDependencies)
 
-A react port of the horizontal time-line developed by CodyHouse.
-Here is a [demo](http://sherubthakur.github.io/react-horizontal-timeline) I hope you too are a fan of the elder scrolls.
+A React port of the horizontal time-line developed by [sherubthakur](https://github.com/sherubthakur/react-horizontal-timeline) and re-developed by [twinkble](https://github.com/twinkble)
+
+Here is a **[demo](https://react-horizontal-timeline.herokuapp.com/)** I hope you too are a fan of the elder scrolls.
 
 ## NOTE
-This package is no longer maintained by me. If you find it usefull and would like to be a maintainer for this package please contact me sherub.thakur@gmail.com
+The original package [sherubthakur/react-horizontal-timeline](https://github.com/sherubthakur/react-horizontal-timeline) is no longer maintained, and I re-developed the package and added additional features.
+
+
+# Support
+I will appreciate your support to keep me going on maintaining & making packages like this one.
+
+<a href="https://ko-fi.com/Z8Z16EGRS">
+<img height="41" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" title="Support me" width="141"/>
+</a>
 
 ## HorizontalTimeline
 
-It will just render a timeline with the dates that you provided and it is up to you what to do when a date is selected. i.e. it will give you the index of the date that was clicked and you can do anything with it.
+It will just render a timeline with the titles (can be dates or anything) that you provided, and it is up to you what to do when a title is selected. i.e. it will give you the index of the title that was clicked, and you can do anything with it.
 
 Property	                  |	Type   	     |	Default	                      |	Description
 :--------------------------|:--------------|:-------------------------------|:--------------------------------
@@ -32,10 +44,11 @@ Property	                  |	Type   	     |	Default	                      |	Desc
  isKeyboardEnabled         | boolean       | true                           | Enable keyboard events (up, down, left, right)
  isOpenBeginning           | boolean       | true                           | Show the beginning of the timeline as open ended
  isOpenEnding              | boolean       | true                           | Show the ending of the timeline as open ended
+ isRtl                     | boolean       | false                          | Used for RTL languages, when this option is true, the direction of the timeline will be from right to left.
 
 This is how it can be used.
 
-```
+```tsx
 import HorizontalTimeline from 'react-horizontal-timeline';
 
 /*
@@ -89,8 +102,3 @@ For more advanced usage take a look at the demos directory.
 
 An easy to customize, horizontal timeline powered by CSS and jQuery.
 
-[Article on CodyHouse](http://codyhouse.co/gem/horizontal-timeline/)
-
-[Demo](https://codyhouse.co/demo/horizontal-timeline/index.html)
-
-[Terms](http://codyhouse.co/terms/)
