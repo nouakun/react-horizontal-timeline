@@ -7,6 +7,8 @@ import Faders from "./Faders";
 import HorizontalTimelineButtons from "./HorizontalTimelineButtons";
 
 import Constants from "../Constants";
+import Radium from "radium";
+import { asCSS } from "../helpers";
 
 /**
  * Components propTypes
@@ -31,6 +33,7 @@ export type EventsBarProps = {
   barPaddingRight: number;
   barPaddingLeft: number;
   selectedIndex: number;
+  isRtl: boolean;
 };
 
 export type EventsBarStates = {
@@ -115,11 +118,7 @@ class EventsBar extends React.Component<EventsBarProps, EventsBarStates> {
 
     const isSwiping = dx > dy && dx > this.touch.threshold;
 
-    if (
-      isSwiping === true ||
-      dx > this.touch.threshold ||
-      dy > this.touch.threshold
-    ) {
+    if (isSwiping || dx > this.touch.threshold || dy > this.touch.threshold) {
       this.touch.isSwiping = isSwiping;
       const dX = this.touch.coors.x - touchObj.pageX; // amount scrolled
       this.touch.coors.x = touchObj.pageX;
@@ -127,7 +126,7 @@ class EventsBar extends React.Component<EventsBarProps, EventsBarStates> {
         position: this.state.position - dX, // set new position
       });
     }
-    if (this.touch.isSwiping !== true) {
+    if (!this.touch.isSwiping) {
       return;
     }
     // Prevent native scrolling
@@ -166,6 +165,7 @@ class EventsBar extends React.Component<EventsBarProps, EventsBarStates> {
   /**
    * Slide the timeline to a specific position. This method wil automatically cap at 0 and the maximum possible position
    * @param {number} position: The position you want to slide to
+   * @param props
    * @return {undefined} Modifies the value by which we translate the events bar
    */
   slideToPosition = (position: number, props = this.props) => {
@@ -190,12 +190,17 @@ class EventsBar extends React.Component<EventsBarProps, EventsBarStates> {
     //  translate the timeline to the left('next')/right('prev')
     if (direction === Constants.RIGHT) {
       this.slideToPosition(
-        this.state.position - props.visibleWidth + props.labelWidth,
+        this.props.isRtl
+          ? this.state.position + props.visibleWidth - props.labelWidth
+          : this.state.position - props.visibleWidth + props.labelWidth,
+
         props
       );
     } else if (direction === Constants.LEFT) {
       this.slideToPosition(
-        this.state.position + props.visibleWidth - props.labelWidth,
+        this.props.isRtl
+          ? this.state.position - props.visibleWidth + props.labelWidth
+          : this.state.position + props.visibleWidth - props.labelWidth,
         props
       );
     }
@@ -265,27 +270,35 @@ class EventsBar extends React.Component<EventsBarProps, EventsBarStates> {
             {({ X }) => (
               <div
                 className="events"
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  top: 49,
-                  height: 2,
-                  width: totalWidth,
-                  WebkitTransform: `translate3d(${X}, 0, 0)px`,
-                  transform: `translate3d(${X}px, 0, 0)`,
-                }}
+                style={asCSS([
+                  {
+                    position: "absolute",
+                    top: 49,
+                    height: 2,
+                    width: totalWidth,
+                    WebkitTransform: `translate3d(${
+                      this.props.isRtl ? X * -1 : X
+                    }, 0, 0)px`,
+                    transform: `translate3d(${
+                      this.props.isRtl ? X * -1 : X
+                    }px, 0, 0)`,
+                  },
+                  { [this.props.isRtl ? Constants.RIGHT : Constants.LEFT]: 0 },
+                ])}
               >
                 <EventLine
                   left={barPaddingLeft}
                   width={eventLineWidth}
                   fillingMotion={fillingMotion}
                   backgroundColor={styles.outline}
+                  isRtl={this.props.isRtl}
                 />
                 <EventLine
                   left={this.props.barPaddingLeft}
                   width={filledValue}
                   fillingMotion={fillingMotion}
                   backgroundColor={styles.foreground}
+                  isRtl={this.props.isRtl}
                 />
                 <Events
                   events={events}
@@ -293,6 +306,7 @@ class EventsBar extends React.Component<EventsBarProps, EventsBarStates> {
                   styles={styles}
                   handleDateClick={indexClick}
                   labelWidth={labelWidth}
+                  isRtl={this.props.isRtl}
                 />
               </div>
             )}
@@ -304,10 +318,11 @@ class EventsBar extends React.Component<EventsBarProps, EventsBarStates> {
           position={position}
           styles={styles}
           updateSlide={this.updateSlide}
+          isRtl={this.props.isRtl}
         />
       </div>
     );
   }
 }
 
-export default EventsBar;
+export default Radium(EventsBar);

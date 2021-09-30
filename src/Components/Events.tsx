@@ -18,6 +18,7 @@ export type EventsProps = {
   labelWidth: number;
   // Custom styling
   styles?: any;
+  isRtl: boolean;
 };
 /**
  * The markup Information for all the events on the horizontal timeline.
@@ -31,6 +32,7 @@ const Events: React.FC<EventsProps> = ({
   styles,
   handleDateClick,
   labelWidth,
+  isRtl,
 }) => (
   <ol
     className="events-bar"
@@ -49,6 +51,7 @@ const Events: React.FC<EventsProps> = ({
         selected={selectedIndex}
         styles={styles}
         labelWidth={labelWidth}
+        isRtl={isRtl}
       />
     ))}
   </ol>

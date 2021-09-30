@@ -1,5 +1,8 @@
 import React from "react";
 import { Motion, spring } from "react-motion";
+import Radium from "radium";
+import { asCSS } from "../helpers";
+import Constants from "../Constants";
 
 export type EventLineProps = {
   left: number;
@@ -9,6 +12,7 @@ export type EventLineProps = {
     damping: number;
   };
   backgroundColor: string;
+  isRtl: boolean;
 };
 
 /**
@@ -22,6 +26,7 @@ const EventLine: React.FC<EventLineProps> = ({
   width,
   fillingMotion,
   backgroundColor,
+  isRtl,
 }) => (
   <Motion
     style={{
@@ -29,22 +34,28 @@ const EventLine: React.FC<EventLineProps> = ({
       tLeft: spring(left, fillingMotion),
     }}
   >
-    {({ tWidth, tLeft }) => (
-      <span
-        aria-hidden="true"
-        className="timeline-eventline"
-        style={{
-          position: "absolute",
-          left: `${tLeft}px`,
-          top: 0,
-          height: "100%",
-          width: `${tWidth}px`,
-          transformOrigin: "left center",
-          backgroundColor,
-        }}
-      />
-    )}
+    {({ tWidth, tLeft }) => {
+      return (
+        <span
+          aria-hidden="true"
+          className="timeline-eventline"
+          style={asCSS([
+            {
+              position: "absolute",
+              top: 0,
+              height: "100%",
+              width: `${tWidth}px`,
+              transformOrigin: `${
+                isRtl ? Constants.RIGHT : Constants.LEFT
+              } center`,
+              backgroundColor,
+            },
+            { [isRtl ? Constants.RIGHT : Constants.LEFT]: `${tLeft}px` },
+          ])}
+        />
+      );
+    }}
   </Motion>
 );
 
-export default EventLine;
+export default Radium(EventLine);

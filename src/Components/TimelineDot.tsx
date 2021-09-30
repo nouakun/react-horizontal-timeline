@@ -1,6 +1,7 @@
 import React from "react";
 import Radium from "radium";
 import { asCSS } from "../helpers";
+import Constants from "../Constants";
 
 /**
  * Component Props type
@@ -24,6 +25,7 @@ export type TimelineDotProps = {
     foreground: string;
     outline: string;
   };
+  isRtl: boolean;
 };
 
 /**
@@ -103,7 +105,8 @@ class TimelineDot extends React.Component<TimelineDotProps, {}> {
   };
 
   render() {
-    const { index, onClick, date, distanceFromOrigin, labelWidth } = this.props;
+    const { index, onClick, date, distanceFromOrigin, labelWidth, isRtl } =
+      this.props;
 
     let dotType = "future";
     if (this.props.index < this.props.selected) {
@@ -112,6 +115,7 @@ class TimelineDot extends React.Component<TimelineDotProps, {}> {
       dotType = "present";
     }
 
+    console.log(distanceFromOrigin, labelWidth);
     return (
       <li
         key={this.props.date}
@@ -121,10 +125,14 @@ class TimelineDot extends React.Component<TimelineDotProps, {}> {
         style={asCSS([
           dots.links,
           {
-            left: distanceFromOrigin - labelWidth / 2,
             cursor: "pointer",
             width: this.props.labelWidth,
             ":hover": {}, // We need this to track the hover state of this element
+          },
+          {
+            [isRtl ? Constants.RIGHT : Constants.LEFT]: isRtl
+              ? distanceFromOrigin - labelWidth / 2
+              : distanceFromOrigin - labelWidth / 2,
           },
         ])}
       >

@@ -75,6 +75,7 @@ export type HorizontalTimelineButtonsProps = {
   styles: any;
   // The maximum position that the timeline component can acuire, (on initial load will be null)
   maxPosition: number;
+  isRtl: boolean;
 };
 /**
  * Markup for both the buttons (that translate the timeline left or right).
@@ -90,39 +91,46 @@ const HorizontalTimelineButtons: React.FC<HorizontalTimelineButtonsProps> = (
     Math.round(props.position) > Math.round(props.maxPosition);
   // const baseStyles = [buttonStyles.link(props.styles)];
 
+  const { isRtl } = props;
+
+  const NextIcon = isRtl ? FaAngleLeft : FaAngleRight;
+  const BackIcon = isRtl ? FaAngleRight : FaAngleLeft;
+
   return (
     <ul className="buttons">
       <li
         className={`button-back ${buttonBackEnabled ? "enabled" : "disabled"}`}
-        key={Constants.LEFT}
-        onClick={() => props.updateSlide(Constants.LEFT)}
+        key={isRtl ? Constants.RIGHT : Constants.LEFT}
+        onClick={() =>
+          props.updateSlide(isRtl ? Constants.RIGHT : Constants.LEFT)
+        }
         style={asCSS([
           buttonStyles.link(props.styles),
           buttonBackEnabled
             ? buttonStyles.active(props.styles)
             : buttonStyles.inactive(props.styles),
-          { [Constants.LEFT]: 0 },
+          { [isRtl ? Constants.RIGHT : Constants.LEFT]: 0 },
         ])}
       >
-        <FaAngleLeft
-          style={buttonStyles.icon(props.styles, buttonBackEnabled)}
-        />
+        <BackIcon style={buttonStyles.icon(props.styles, buttonBackEnabled)} />
       </li>
       <li
         className={`button-forward ${
           buttonForwardEnabled ? "enabled" : "disabled"
         }`}
-        key={Constants.RIGHT}
-        onClick={() => props.updateSlide(Constants.RIGHT)}
+        key={isRtl ? Constants.LEFT : Constants.RIGHT}
+        onClick={() =>
+          props.updateSlide(isRtl ? Constants.LEFT : Constants.RIGHT)
+        }
         style={asCSS([
           buttonStyles.link(props.styles),
           buttonForwardEnabled
             ? buttonStyles.active(props.styles)
             : buttonStyles.inactive(props.styles),
-          { [Constants.RIGHT]: 0 },
+          { [isRtl ? Constants.LEFT : Constants.RIGHT]: 0 },
         ])}
       >
-        <FaAngleRight
+        <NextIcon
           style={buttonStyles.icon(props.styles, buttonForwardEnabled)}
         />
       </li>
