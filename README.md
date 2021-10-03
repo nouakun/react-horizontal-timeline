@@ -1,7 +1,7 @@
 ![image](https://twinkble.github.io/react-horizontal-timeline/logo.png)
 
 # React Horizontal Timeline
-[![npm version](https://badge.fury.io/js/react-horizontal-timeline.svg)](https://badge.fury.io/js/react-horizontal-timeline)
+[![npm version](https://badge.fury.io/js/@cielblog/react-horizontal-timeline.svg)](https://badge.fury.io/js/react-horizontal-timeline)
 [![Build Status](https://travis-ci.org/twinkble/react-horizontal-timeline.svg?branch=master)](https://travis-ci.org/twinkble/react-horizontal-timeline)
 [![Code Climate](https://codeclimate.com/github/twinkble/react-horizontal-timeline/badges/gpa.svg)](https://codeclimate.com/github/twinkble/react-horizontal-timeline)
 [![Dependency Status](https://david-dm.org/twinkble/react-horizontal-timeline.svg)](https://david-dm.org/twinkble/react-horizontal-timeline)
@@ -10,7 +10,7 @@
 
 A React port of the horizontal time-line developed by [sherubthakur](https://github.com/sherubthakur/react-horizontal-timeline) and re-developed by [twinkble](https://github.com/twinkble)
 
-Here is a **[demo](https://react-horizontal-timeline.herokuapp.com/)** I hope you too are a fan of the elder scrolls.
+Here is a **[demo](https://react-horizontal-timeline.herokuapp.com/)**.
 
 ## NOTE
 The original package [sherubthakur/react-horizontal-timeline](https://github.com/sherubthakur/react-horizontal-timeline) is no longer maintained, and I re-developed the package and added additional features.
@@ -39,7 +39,7 @@ It will just render a timeline with the titles (can be dates or anything) that y
 | Property            | Type       | Required? | Default                                                                | Description                                                                                                                                                                                                                                                                               |
 |---------------------|------------|-----------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `titles`            | `string[]` | ✅         | `undefined`                                                            | **Stored** array of titles.                                                                                                                                                                                                                                                               |
-| `index`             | `number`   |           | `undefined`                                                            | The index of the selected title.                                                                                                                                                                                                                                                          |
+| `index`             | `number`   | ✅         | `undefined`                                                            | The index of the selected title.                                                                                                                                                                                                                                                          |
 | `onTitleClick`      | `function` | ✅         | `undefined`                                                            | Function that takes the index of array as argument.                                                                                                                                                                                                                                       |
 | `renderTitles`      | `function` |           | `string`                                                               | Custom rendering title function.                                                                                                                                                                                                                                                          |
 | `maxEventPadding`   | `number`   |           | `20`                                                                   | The minimum padding between two event titles.                                                                                                                                                                                                                                             |

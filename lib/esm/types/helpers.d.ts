@@ -1,8 +1,8 @@
-import { CSSProperties } from "react";
 /**
  * This file contains some helper functions which are stateless (provide a pure interface)
  * and are used by the timeline component.
  */
+import { CSSProperties } from "react";
 /**
  * Differance between two dates
  *
@@ -10,7 +10,7 @@ import { CSSProperties } from "react";
  * @param  {Date} second Date of the second event
  * @return {number} Differance between the two dates
  */
-export declare const daydiff: (first: number, second: number) => number;
+export declare const daydiff: (first: any, second: any) => number;
 /**
  * Takes a list of lists and zips them together (size should be the same).
  *
@@ -19,13 +19,13 @@ export declare const daydiff: (first: number, second: number) => number;
  * @param {array} rows An array (of size 2) of arrays (of equal size).
  * @return {array} An array (of size of either array in param) of arrays (of size 2)
  */
-export declare const zip: (rows: string[][]) => string[][];
+export declare const zip: (rows: any) => any;
 /**
  * Determines the minimum and maximum distance between a list of dates
  * @param {array} dates The array containing all the dates
  * @return {{min: number, max: number}} The minimum and maximum distances
  */
-export declare const dateDistanceExtremes: (dates: string[]) => {
+export declare const dateDistanceExtremes: (dates: any) => {
     min: number;
     max: number;
 };
@@ -40,7 +40,7 @@ export declare const dateDistanceExtremes: (dates: string[]) => {
  * @param {number} startPadding The padding at the beginning of the timeline
  * @return {array} positioning information for dates from a given origin point
  */
-export declare const cummulativeSeperation: any;
+export declare const cummulativeSeperation: (dates: string | any[], labelWidth: number, minEventPadding: number, maxEventPadding: number, startPadding: number) => Array<any>;
 /**
  * Fix raduim type issue
  * @see https://github.com/FormidableLabs/radium/issues/995#issuecomment-426905002

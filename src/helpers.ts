@@ -1,9 +1,10 @@
-import { CSSProperties } from "react";
-
 /**
  * This file contains some helper functions which are stateless (provide a pure interface)
  * and are used by the timeline component.
  */
+
+import { CSSProperties } from "react";
+
 /**
  * Differance between two dates
  *
@@ -11,8 +12,9 @@ import { CSSProperties } from "react";
  * @param  {Date} second Date of the second event
  * @return {number} Differance between the two dates
  */
-export const daydiff = (first: number, second: number) =>
-  Math.round(second - first);
+// @ts-ignore
+export const daydiff = (first, second) => Math.round(second - first);
+
 /**
  * Takes a list of lists and zips them together (size should be the same).
  *
@@ -21,18 +23,21 @@ export const daydiff = (first: number, second: number) =>
  * @param {array} rows An array (of size 2) of arrays (of equal size).
  * @return {array} An array (of size of either array in param) of arrays (of size 2)
  */
-export const zip = (rows: string[][]) =>
-  rows.map((_: string[], index: number) => rows.map((row) => row[index]));
+// @ts-ignore
+export const zip = (rows) => rows[0].map((_, c) => rows.map((row) => row[c]));
 
 /**
  * Determines the minimum and maximum distance between a list of dates
  * @param {array} dates The array containing all the dates
  * @return {{min: number, max: number}} The minimum and maximum distances
  */
-export const dateDistanceExtremes = (dates: string[]) => {
+// @ts-ignore
+export const dateDistanceExtremes = (dates) => {
   // determine the minimum distance among events
-  const datePairs: string[][] = zip([dates.slice(0, -1), dates.slice(1)]);
-  const dateDistances = datePairs.map(([x, y]) => daydiff(x.length, y.length));
+  const datePairs = zip([dates.slice(0, -1), dates.slice(1)]);
+  // @ts-ignore
+  const dateDistances = datePairs.map(([x, y]) => daydiff(x, y));
+
   // return the minimum distance between two dates but considering that all dates
   // are the same then return the provided minimum seperation.
   return {
@@ -40,6 +45,7 @@ export const dateDistanceExtremes = (dates: string[]) => {
     max: Math.max.apply(null, dateDistances),
   };
 };
+
 /**
  * Given dates and some bounds returns an array of positioning information w.r.t. some origin for
  * that set of dates.
@@ -52,24 +58,25 @@ export const dateDistanceExtremes = (dates: string[]) => {
  * @return {array} positioning information for dates from a given origin point
  */
 // the interface for this function is pure
-
-export const cummulativeSeperation: any = (
-  dates: string[],
+export const cummulativeSeperation = (
+  dates: string | any[],
   labelWidth: number,
   minEventPadding: number,
   maxEventPadding: number,
   startPadding: number
-) => {
+): Array<any> => {
   // using dynamic programming to set up the distance from the origin of the timeline.
   const distances = new Array(dates.length);
   distances[0] = startPadding;
+
   // Calculating the minimum seperation between events
   const dateExtremes = dateDistanceExtremes(dates);
   const datesDiff = dateExtremes.max - dateExtremes.min;
   const paddingDiff = maxEventPadding - minEventPadding;
   // const halfLabel = labelWidth / 2;
+
   for (let index = 1; index < distances.length; index += 1) {
-    const distance = daydiff(dates[index - 1].length, dates[index].length);
+    const distance = daydiff(dates[index - 1], dates[index]);
     // relative spacing according to min and max seperation
     const seperation =
       datesDiff === 0

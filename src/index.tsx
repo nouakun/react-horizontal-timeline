@@ -171,10 +171,10 @@ class Index extends React.Component<
           // Calculate the distances for all events
           const distances = cummulativeSeperation(
             titlesList,
-            titleWidth,
-            minEventPadding,
-            maxEventPadding,
-            linePadding
+            titleWidth!,
+            minEventPadding!,
+            maxEventPadding!,
+            linePadding!
           );
 
           // Convert the distances and dates to events
@@ -187,7 +187,7 @@ class Index extends React.Component<
           const visibleWidth = width - 80;
 
           const totalWidth = Math.max(
-            events[events.length - 1].distance + this.props.linePadding,
+            events[events.length - 1].distance + this.props.linePadding!,
             visibleWidth
           );
 
